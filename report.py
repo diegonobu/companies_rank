@@ -1,8 +1,22 @@
+class Report:
+    def __init__(self, companies=[]):
+        self.companies = clean_data(companies)
+
+    def summary_by_companies(self):
+        for company in self.companies:
+            print(company.name)
+            result = organize_values(company.data)
+            for key, item in result.items():
+                fav, neutral, unfav = percentage_results(item)
+                print('{}: {}% fav, {}% neutral, {}% unfav'.format(key, fav, neutral, unfav))
+
+            print('')
+
+
 def clean_data(data):
     for company in data:
-        print(company.name)
-
         company.data = company.clean_data()
+    return data
 
 
 def organize_values(data):
@@ -29,19 +43,6 @@ def percentage_results(item):
     neutral = percentage(item['neutral'], item['total'])
     unfav = percentage(item['unfav'], item['total'])
     return fav, neutral, unfav
-
-
-def summary_by_companies(data):
-    for company in data:
-        print(company.name)
-
-        result = organize_values(company.data)
-
-        for key, item in result.items():
-            fav, neutral, unfav = percentage_results(item)
-            print('{}: {}% fav, {}% neutral, {}% unfav'.format(key, fav, neutral, unfav))
-
-        print('')
 
 
 def fav_answer_by_question(data):
