@@ -46,15 +46,15 @@ class TestCompany(unittest.TestCase):
         item = company.collect_from_file('tmp/test.txt')
         data = item.clean_data()
 
-        self.assertEqual(len(data), 7)
+        self.assertEqual(len(data[0]), 7)
 
-        self.assertEqual(data[0], ('4569', 3))
-        self.assertEqual(data[1], ('4569', 2))
-        self.assertEqual(data[2], ('4567', 4))
-        self.assertEqual(data[3], ('4571', 1))
-        self.assertEqual(data[4], ('4570', 1))
-        self.assertEqual(data[5], ('4569', 0))
-        self.assertEqual(data[6], ('4568', 2))
+        self.assertEqual(data[0][0], ('4569', 3))
+        self.assertEqual(data[0][1], ('4569', 2))
+        self.assertEqual(data[0][2], ('4567', 4))
+        self.assertEqual(data[0][3], ('4571', 1))
+        self.assertEqual(data[0][4], ('4570', 1))
+        self.assertEqual(data[0][5], ('4569', 0))
+        self.assertEqual(data[0][6], ('4568', 2))
 
 
 if __name__ == '__main__':
