@@ -18,3 +18,7 @@ if __name__ == '__main__':
     # print('Fav answers by questions:')
     #
     # report.fav_answer_by_question()
+
+    print('Valid answer:\n')
+
+    report.show_valid_answers()
