@@ -19,4 +19,5 @@ def verify_valid_answer(answer):
 def collect_from_file(f):
     with open(f) as file:
         lines = file.readlines()
-    return Company(lines[0].strip(), lines[1:])
+    data = [i.strip() for i in lines[1:]]
+    return Company(lines[0].strip(), data)

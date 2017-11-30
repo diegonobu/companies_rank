@@ -1,16 +1,34 @@
 class Report:
-    def __init__(self, companies=[]):
+    def __init__(self, companies=None):
+        if companies is None:
+            companies = []
         self.companies = clean_data(companies)
+        self.summary = {}
 
     def summary_by_companies(self):
         for company in self.companies:
-            print(company.name)
+            if company.name not in self.summary:
+                self.summary[company.name] = {}
             result = organize_values(company.data)
             for key, item in result.items():
                 fav, neutral, unfav = percentage_results(item)
-                print('{}: {}% fav, {}% neutral, {}% unfav'.format(key, fav, neutral, unfav))
+                self.summary[company.name][key] = {
+                    'fav': fav, 'neutral': neutral, 'unfav': unfav
+                }
+        return self.summary
 
+    def show_summary_by_companies(self):
+        if not self.summary:
+            self.summary_by_companies()
+        for company, data in self.summary.items():
+            print(company)
+            for key, item in data.items():
+                print('{}: {}% fav, {}% neutral, {}% unfav'
+                      .format(key, item['fav'], item['neutral'], item['unfav']))
             print('')
+
+    def fav_answer_by_question(self):
+        pass
 
 
 def clean_data(data):
@@ -19,17 +37,25 @@ def clean_data(data):
     return data
 
 
+def is_fav(answer):
+    return answer == 0 or answer == 1
+
+
+def is_unfav(answer):
+    return answer == 3 or answer == 4
+
+
 def organize_values(data):
     result = {}
     for id, answer in data:
         if id not in result:
             result[id] = {'fav': 0, 'neutral': 0, 'unfav': 0, 'total': 0}
-        if answer == 0 or answer == 1:
+        if is_fav(answer):
             result[id]['fav'] += 1
-        elif answer == 2:
-            result[id]['neutral'] += 1
-        else:
+        elif is_unfav(answer):
             result[id]['unfav'] += 1
+        else:
+            result[id]['neutral'] += 1
         result[id]['total'] += 1
     return result
 
@@ -43,7 +69,3 @@ def percentage_results(item):
     neutral = percentage(item['neutral'], item['total'])
     unfav = percentage(item['unfav'], item['total'])
     return fav, neutral, unfav
-
-
-def fav_answer_by_question(data):
-    pass
