@@ -22,11 +22,10 @@ class Report:
         if not self.summary:
             self.summary_by_companies()
         for company, data in self.summary.items():
-            print(company)
+            print('\n{}'.format(company))
             for key, item in data.items():
                 print('{}: {}% fav, {}% neutral, {}% unfav'
                       .format(key, item['fav'], item['neutral'], item['unfav']))
-            print('')
 
     # def fav_answer_by_question(self):
     #     if not self.summary:
@@ -40,10 +39,14 @@ class Report:
         for company in self.companies:
             print('{}: {}'.format(company.name, len(company.data)))
 
+    def show_invalid_answers(self):
+        for company in self.companies:
+            print('{}: {}'.format(company.name, company.invalid_answers))
+
 
 def clean_data(data):
     for company in data:
-        company.data = company.clean_data()
+        company.data, company.invalid_answers = company.clean_data()
     return data
 
 

@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     report = Report(data)
 
-    print('Summary by companies:\n')
+    print('\nSummary by companies:\n')
 
     report.show_summary_by_companies()
 
@@ -19,6 +19,10 @@ if __name__ == '__main__':
     #
     # report.fav_answer_by_question()
 
-    print('Valid answer:\n')
+    print('\nValid answer:\n')
 
     report.show_valid_answers()
+
+    print('\nInvalid answer:\n')
+
+    report.show_invalid_answers()
