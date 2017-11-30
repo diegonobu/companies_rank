@@ -4,7 +4,6 @@ class Report:
             companies = []
         self.companies = clean_data(companies)
         self.summary = {}
-        self.valid_answer = {}
 
     def summary_by_companies(self):
         for company in self.companies:
@@ -27,13 +26,17 @@ class Report:
                 print('{}: {}% fav, {}% neutral, {}% unfav'
                       .format(key, item['fav'], item['neutral'], item['unfav']))
 
-    # def fav_answer_by_question(self):
-    #     if not self.summary:
-    #         self.summary_by_companies()
-    #     result =
-    #     for company, data in self.summary.items():
-    #         for key, item in data.items():
-    #             result.append()
+    def fav_answer_by_question(self):
+        if not self.summary:
+            self.summary_by_companies()
+        result = {}
+        for company, data in self.summary.items():
+            for key, item in data.items():
+                if key not in result:
+                    result[key] = []
+                result[key].append((company, item['fav']))
+        for c, i in result.items():
+            print('{}:{}'.format(c, ''.join(' {} {}% fav,'.format(n, q) for n, q in i)))
 
     def show_valid_answers(self):
         for company in self.companies:

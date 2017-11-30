@@ -11,13 +11,13 @@ if __name__ == '__main__':
 
     report = Report(data)
 
-    print('\nSummary by companies:\n')
+    print('\nSummary by companies:')
 
     report.show_summary_by_companies()
 
-    # print('Fav answers by questions:')
-    #
-    # report.fav_answer_by_question()
+    print('\nFav answers by questions:\n')
+
+    report.fav_answer_by_question()
 
     print('\nValid answer:\n')
 
