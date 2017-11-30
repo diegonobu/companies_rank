@@ -14,3 +14,9 @@ class Company:
 
 def verify_valid_answer(answer):
     return 0 <= answer < 5
+
+
+def collect_from_file(f):
+    with open(f) as file:
+        lines = file.readlines()
+    return Company(lines[0].strip(), lines[1:])
